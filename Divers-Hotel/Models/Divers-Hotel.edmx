@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbMealPlans">
+          <Key>
+            <PropertyRef Name="mealPlanId" />
+          </Key>
+          <Property Name="mealPlanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mealPlanName" Type="nvarchar" MaxLength="200" />
+          <Property Name="mealPlanPriceInLowSeason" Type="nvarchar" MaxLength="200" />
+          <Property Name="mealPlanPriceinHighSeason" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbReservations">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="reservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reservationCustomerName" Type="nvarchar" MaxLength="200" />
+          <Property Name="reservationCustomerEmail" Type="nvarchar" MaxLength="200" />
+          <Property Name="reservationCustomerCountry" Type="nvarchar" MaxLength="200" />
+          <Property Name="reservationAdultNumber" Type="int" />
+          <Property Name="reservationChildNumber" Type="int" />
+          <Property Name="reservationRoomTypeId" Type="int" />
+          <Property Name="reservationMealPlanId" Type="int" />
+          <Property Name="reservationCheckInDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="reservationCheckOutDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="reservationTotalPrice" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbRoomTypes">
+          <Key>
+            <PropertyRef Name="roomTypeId" />
+          </Key>
+          <Property Name="roomTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomTypeName" Type="nvarchar" MaxLength="200" />
+          <Property Name="fromDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="toDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="roomPrice" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_tbReservations_tbMealPlans">
+          <End Role="tbMealPlans" Type="Self.tbMealPlans" Multiplicity="0..1" />
+          <End Role="tbReservations" Type="Self.tbReservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMealPlans">
+              <PropertyRef Name="mealPlanId" />
+            </Principal>
+            <Dependent Role="tbReservations">
+              <PropertyRef Name="reservationMealPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbReservations_tbRoomTypes">
+          <End Role="tbRoomTypes" Type="Self.tbRoomTypes" Multiplicity="0..1" />
+          <End Role="tbReservations" Type="Self.tbReservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoomTypes">
+              <PropertyRef Name="roomTypeId" />
+            </Principal>
+            <Dependent Role="tbReservations">
+              <PropertyRef Name="reservationRoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="tbMealPlans" EntityType="Self.tbMealPlans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbReservations" EntityType="Self.tbReservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbRoomTypes" EntityType="Self.tbRoomTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbReservations_tbMealPlans" Association="Self.FK_tbReservations_tbMealPlans">
+            <End Role="tbMealPlans" EntitySet="tbMealPlans" />
+            <End Role="tbReservations" EntitySet="tbReservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbReservations_tbRoomTypes" Association="Self.FK_tbReservations_tbRoomTypes">
+            <End Role="tbRoomTypes" EntitySet="tbRoomTypes" />
+            <End Role="tbReservations" EntitySet="tbReservations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbMealPlan">
+          <Key>
+            <PropertyRef Name="mealPlanId" />
+          </Key>
+          <Property Name="mealPlanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mealPlanName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="mealPlanPriceInLowSeason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="mealPlanPriceinHighSeason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbReservations" Relationship="Self.FK_tbReservations_tbMealPlans" FromRole="tbMealPlans" ToRole="tbReservations" />
+        </EntityType>
+        <EntityType Name="tbReservation">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="reservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reservationCustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="reservationCustomerEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="reservationCustomerCountry" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="reservationAdultNumber" Type="Int32" />
+          <Property Name="reservationChildNumber" Type="Int32" />
+          <Property Name="reservationRoomTypeId" Type="Int32" />
+          <Property Name="reservationMealPlanId" Type="Int32" />
+          <Property Name="reservationCheckInDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="reservationCheckOutDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="reservationTotalPrice" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbMealPlan" Relationship="Self.FK_tbReservations_tbMealPlans" FromRole="tbReservations" ToRole="tbMealPlans" />
+          <NavigationProperty Name="tbRoomType" Relationship="Self.FK_tbReservations_tbRoomTypes" FromRole="tbReservations" ToRole="tbRoomTypes" />
+        </EntityType>
+        <EntityType Name="tbRoomType">
+          <Key>
+            <PropertyRef Name="roomTypeId" />
+          </Key>
+          <Property Name="roomTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="fromDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="toDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="roomPrice" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbReservations" Relationship="Self.FK_tbReservations_tbRoomTypes" FromRole="tbRoomTypes" ToRole="tbReservations" />
+        </EntityType>
+        <Association Name="FK_tbReservations_tbMealPlans">
+          <End Role="tbMealPlans" Type="Self.tbMealPlan" Multiplicity="0..1" />
+          <End Role="tbReservations" Type="Self.tbReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMealPlans">
+              <PropertyRef Name="mealPlanId" />
+            </Principal>
+            <Dependent Role="tbReservations">
+              <PropertyRef Name="reservationMealPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbReservations_tbRoomTypes">
+          <End Role="tbRoomTypes" Type="Self.tbRoomType" Multiplicity="0..1" />
+          <End Role="tbReservations" Type="Self.tbReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoomTypes">
+              <PropertyRef Name="roomTypeId" />
+            </Principal>
+            <Dependent Role="tbReservations">
+              <PropertyRef Name="reservationRoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbMealPlans" EntityType="Self.tbMealPlan" />
+          <EntitySet Name="tbReservations" EntityType="Self.tbReservation" />
+          <EntitySet Name="tbRoomTypes" EntityType="Self.tbRoomType" />
+          <AssociationSet Name="FK_tbReservations_tbMealPlans" Association="Self.FK_tbReservations_tbMealPlans">
+            <End Role="tbMealPlans" EntitySet="tbMealPlans" />
+            <End Role="tbReservations" EntitySet="tbReservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbReservations_tbRoomTypes" Association="Self.FK_tbReservations_tbRoomTypes">
+            <End Role="tbRoomTypes" EntitySet="tbRoomTypes" />
+            <End Role="tbReservations" EntitySet="tbReservations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="tbMealPlans">
+            <EntityTypeMapping TypeName="Model.tbMealPlan">
+              <MappingFragment StoreEntitySet="tbMealPlans">
+                <ScalarProperty Name="mealPlanId" ColumnName="mealPlanId" />
+                <ScalarProperty Name="mealPlanName" ColumnName="mealPlanName" />
+                <ScalarProperty Name="mealPlanPriceInLowSeason" ColumnName="mealPlanPriceInLowSeason" />
+                <ScalarProperty Name="mealPlanPriceinHighSeason" ColumnName="mealPlanPriceinHighSeason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbReservations">
+            <EntityTypeMapping TypeName="Model.tbReservation">
+              <MappingFragment StoreEntitySet="tbReservations">
+                <ScalarProperty Name="reservationId" ColumnName="reservationId" />
+                <ScalarProperty Name="reservationCustomerName" ColumnName="reservationCustomerName" />
+                <ScalarProperty Name="reservationCustomerEmail" ColumnName="reservationCustomerEmail" />
+                <ScalarProperty Name="reservationCustomerCountry" ColumnName="reservationCustomerCountry" />
+                <ScalarProperty Name="reservationAdultNumber" ColumnName="reservationAdultNumber" />
+                <ScalarProperty Name="reservationChildNumber" ColumnName="reservationChildNumber" />
+                <ScalarProperty Name="reservationRoomTypeId" ColumnName="reservationRoomTypeId" />
+                <ScalarProperty Name="reservationMealPlanId" ColumnName="reservationMealPlanId" />
+                <ScalarProperty Name="reservationCheckInDate" ColumnName="reservationCheckInDate" />
+                <ScalarProperty Name="reservationCheckOutDate" ColumnName="reservationCheckOutDate" />
+                <ScalarProperty Name="reservationTotalPrice" ColumnName="reservationTotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRoomTypes">
+            <EntityTypeMapping TypeName="Model.tbRoomType">
+              <MappingFragment StoreEntitySet="tbRoomTypes">
+                <ScalarProperty Name="roomTypeId" ColumnName="roomTypeId" />
+                <ScalarProperty Name="roomTypeName" ColumnName="roomTypeName" />
+                <ScalarProperty Name="fromDate" ColumnName="fromDate" />
+                <ScalarProperty Name="toDate" ColumnName="toDate" />
+                <ScalarProperty Name="roomPrice" ColumnName="roomPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

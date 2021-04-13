@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Divers_Hotel.Models.tbMealPlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.mealPlanName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mealPlanPriceInLowSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mealPlanPriceinHighSeason)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.mealPlanName)
+        </td>
+        <td>
+            <p>
+                $@Html.DisplayFor(modelItem => item.mealPlanPriceInLowSeason)
+            </p>
+        </td>
+        <td>
+            <p>
+                $@Html.DisplayFor(modelItem => item.mealPlanPriceinHighSeason)
+            </p>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.mealPlanId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.mealPlanId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.mealPlanId })
+        </td>
+    </tr>
+}
+
+</table>

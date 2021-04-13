@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "TotalResult";
+}
+
+<h2>Total Result</h2>
+
+@if (null != TempData["alertMessage"])
+{
+    <script type="text/javascript">
+alert('@TempData["alertMessage"]');
+    </script>
+}
+

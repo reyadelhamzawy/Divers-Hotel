@@ -1,0 +1,42 @@
+﻿@model Divers_Hotel.Models.tbMealPlan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbMealPlan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.mealPlanName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mealPlanName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mealPlanPriceInLowSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mealPlanPriceInLowSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mealPlanPriceinHighSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mealPlanPriceinHighSeason)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.mealPlanId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
